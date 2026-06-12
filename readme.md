@@ -1,0 +1,1 @@
+curl -X POST "http://localhost:8080/transactions/simulate?accountId=ACC999&amount=75000&location=US"
