@@ -6,7 +6,7 @@ A sample application demonstrating how to **publish and consume messages** using
 ## ⚙️ Prerequisites
 
 - **Apache Kafka** installed and configured (KRaft mode).  
-- Minimum Java version: Java 17, I have build it with Java 23+  
+- Minimum Java version: Java 17, I have build it with Java 23, 24, 25  
 - Maven 4
 - Spring Boot 4
 
