@@ -88,6 +88,56 @@ Run these commands from the Kafka `bin/` directory (or add it to your PATH):
 
 ---
 
+---
+
+## 🚀 Build & Run with Docker (Windows Environment)
+
+To build a Docker native image and run the application alongside Kafka, follow these steps:
+
+1. **Create Docker network**  
+   ```bash
+   docker network create kafka-net
+   ```
+
+2. **Start Kafka container**  
+   ```bash
+   docker run -d --name Test-kafka --network kafka-net -p 9092:9092 apache/kafka:latest
+   ```
+   Use the same name that used during docker network in --network
+
+3. **Configure Spring Boot Kafka**  
+   In your `application.properties` file, set:
+   ```properties
+   spring.kafka.bootstrap-servers=Test-kafka:9092
+   ```
+
+4. **Build Docker native image**  
+   Run Maven with one of the supported builders:
+   ```bash
+   mvn spring-boot:build-image -Dspring-boot.build-image.builder=paketobuildpacks/builder:base
+   ```
+   or
+   ```bash
+   mvn spring-boot:build-image -Dspring-boot.build-image.builder=paketobuildpacks/builder:tiny
+   ```
+
+5. **Run application container**  
+   ```bash
+   docker run -d --name fraud-app --network kafka-net -p 8080:8080 fraud-detection-pipeline:1.0.0
+   ```
+   Use the same name that used during docker network in --network
+
+6. **Send test request**  
+   ```bash
+   curl -X POST "http://localhost:8080/transactions/simulate?accountId=ACC80&amount=150000&location=US"
+   ```
+
+---
+
+
+
+
+
 ## ✅ Key Notes
 - This project uses **Kafka KRaft mode** (no ZooKeeper).  
 ---
